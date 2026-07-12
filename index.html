@@ -72,8 +72,8 @@
     filter:blur(6px);z-index:-1;
   }
   .patch{
-    width:min(80vw,540px);height:auto;display:block;
-    filter:drop-shadow(0 16px 32px rgba(32,32,30,.35));
+    width:min(82vw,560px);height:auto;display:block;
+    filter:drop-shadow(0 18px 30px rgba(32,32,30,.30));
     animation:settle 1.1s cubic-bezier(.16,.84,.36,1) both;
   }
   @keyframes settle{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
@@ -235,7 +235,7 @@
         <p>Si has rodado con alguno de nosotros o alguien del club te ha animado a escribir, deja tus datos. Un miembro se pondrá en contacto para invitarte a una salida y conocernos sin compromiso.</p>
         <p>El chaleco no se compra. Se gana.</p>
       </div>
-      <form id="joinForm" novalidate>
+      <form id="joinForm" action="https://formspree.io/f/mgogwjjv" method="POST" novalidate>
         <div>
           <label for="nombre">Nombre y apodo</label>
           <input id="nombre" name="nombre" type="text" placeholder="Cómo te llaman en la carretera" required>
@@ -249,9 +249,14 @@
           <input id="aval" name="aval" type="text" placeholder="Miembro que te recomienda (si lo hay)">
         </div>
         <div>
+          <label for="email">Tu correo</label>
+          <input id="email" name="email" type="email" placeholder="Para poder responderte" required>
+        </div>
+        <div>
           <label for="mensaje">Por qué quieres rodar con nosotros</label>
           <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos algo de ti"></textarea>
         </div>
+        <input type="hidden" name="_subject" value="Nueva solicitud de ingreso · Photon Riders">
         <button class="btn" type="submit">Enviar solicitud</button>
         <p class="form-msg" id="formMsg" role="status"></p>
       </form>
@@ -270,15 +275,31 @@
   // close mobile nav on link click
   document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
 
-  // form handling (front-end only demo — no backend wired yet)
-  document.getElementById('joinForm').addEventListener('submit',function(e){
+  // form handling — envío real a Formspree sin recargar la página
+  document.getElementById('joinForm').addEventListener('submit',async function(e){
     e.preventDefault();
+    const form=this;
     const msg=document.getElementById('formMsg');
     const nombre=document.getElementById('nombre').value.trim();
     const moto=document.getElementById('moto').value.trim();
-    if(!nombre||!moto){msg.textContent='Necesitamos al menos tu nombre y tu moto.';return;}
-    msg.textContent='Solicitud recibida, '+nombre+'. Un miembro te escribirá pronto. Rueda con cuidado.';
-    this.reset();
+    const email=document.getElementById('email').value.trim();
+    if(!nombre||!moto||!email){msg.textContent='Necesitamos tu nombre, tu moto y un correo de contacto.';return;}
+    msg.textContent='Enviando…';
+    try{
+      const res=await fetch(form.action,{
+        method:'POST',
+        body:new FormData(form),
+        headers:{'Accept':'application/json'}
+      });
+      if(res.ok){
+        msg.textContent='Solicitud recibida, '+nombre+'. Un miembro te escribirá pronto. Rueda con cuidado.';
+        form.reset();
+      }else{
+        msg.textContent='No se pudo enviar ahora mismo. Escríbenos directamente a contacto@photonriders.club';
+      }
+    }catch(err){
+      msg.textContent='No se pudo enviar ahora mismo. Escríbenos directamente a contacto@photonriders.club';
+    }
   });
 </script>
 </body>
