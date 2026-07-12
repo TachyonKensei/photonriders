@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photon Riders · Aeternum</title>
+<meta name="description" content="Photon Riders — club de motociclismo por invitación con base en Paterna, Valencia. Aeternum.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --leather:#f2ede3;        /* fondo claro (crema hilo) */
+    --leather-2:#faf7f0;       /* superficies / inputs */
+    --thread:#20201e;          /* texto principal oscuro */
+    --thread-dim:#5d574c;      /* texto secundario */
+    --blood:#8f2f2f;
+    --blood-bright:#9c3636;
+    --navy:#2a3550;
+    --gold:#8a6a34;
+    --hair:rgba(32,32,30,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--leather);
+    color:var(--thread);
+    font-family:'EB Garamond',Georgia,serif;
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* subtle stitched leather grain */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(42,53,80,.07), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(143,47,47,.06), transparent 45%),
+      repeating-linear-gradient(0deg, rgba(0,0,0,.04) 0 1px, transparent 1px 3px);
+    opacity:.7;
+  }
+  .wrap{position:relative;z-index:1}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Nav ---- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px clamp(20px,5vw,64px);
+    background:linear-gradient(180deg,rgba(242,237,227,.97),rgba(242,237,227,.75) 70%,transparent);
+    backdrop-filter:blur(4px);
+  }
+  .brand{
+    font-family:'UnifrakturMaguntia',cursive;
+    font-size:26px;letter-spacing:.5px;color:var(--blood);
+  }
+  .navlinks{display:flex;gap:28px;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .navlinks a{color:var(--thread-dim);transition:color .2s;padding-bottom:4px;border-bottom:1px solid transparent}
+  .navlinks a:hover{color:var(--thread);border-bottom-color:var(--blood-bright)}
+  .navtoggle{display:none;background:none;border:1px solid var(--hair);color:var(--thread);padding:8px 12px;font-family:'Cinzel',serif;letter-spacing:.1em;cursor:pointer}
+
+  /* ---- Hero ---- */
+  header.hero{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:120px 20px 80px;position:relative;
+  }
+  .hero-glow{
+    position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);
+    width:min(90vw,720px);aspect-ratio:1;border-radius:50%;
+    background:radial-gradient(circle,rgba(42,53,80,.10),rgba(143,47,47,.05) 45%,transparent 68%);
+    filter:blur(6px);z-index:-1;
+  }
+  .patch{
+    width:min(80vw,540px);height:auto;display:block;
+    filter:drop-shadow(0 16px 32px rgba(32,32,30,.35));
+    animation:settle 1.1s cubic-bezier(.16,.84,.36,1) both;
+  }
+  @keyframes settle{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+  .hero-lede{
+    margin-top:34px;font-family:'Cinzel',serif;font-size:clamp(12px,2.4vw,15px);
+    letter-spacing:.42em;text-transform:uppercase;color:var(--thread-dim);
+  }
+  .hero-sub{max-width:560px;margin:20px auto 0;font-style:italic;font-size:19px;color:var(--thread)}
+  .scrollcue{margin-top:48px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.3em;color:var(--thread-dim);text-transform:uppercase;animation:bob 2.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(6px);opacity:1}}
+
+  /* ---- Section shell ---- */
+  section{padding:clamp(72px,10vw,132px) clamp(20px,6vw,80px);max-width:1080px;margin:0 auto;position:relative}
+  .eyebrow{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--blood-bright);margin-bottom:16px}
+  h2{font-family:'UnifrakturMaguntia',cursive;font-size:clamp(38px,7vw,68px);font-weight:400;line-height:1;margin-bottom:26px;color:var(--thread)}
+  h3{font-family:'Cinzel',serif;font-size:20px;letter-spacing:.05em;margin-bottom:10px;color:var(--thread)}
+  p.lead{font-size:21px;max-width:64ch}
+  .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--blood),var(--navy),transparent);opacity:.45;max-width:1080px;margin:0 auto}
+
+  /* creed */
+  .creed{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:34px;margin-top:48px}
+  .creed article{border-top:1px solid var(--hair);padding-top:20px}
+  .creed .num{font-family:'Cinzel',serif;color:var(--blood-bright);letter-spacing:.2em;font-size:13px;margin-bottom:10px}
+  .creed p{color:var(--thread-dim)}
+
+  /* rutas */
+  .rides{margin-top:48px;display:flex;flex-direction:column;gap:0}
+  .ride{display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:baseline;padding:26px 0;border-bottom:1px solid var(--hair)}
+  .ride:first-child{border-top:1px solid var(--hair)}
+  .ride .date{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;color:var(--gold)}
+  .ride .rname{font-family:'EB Garamond',serif;font-size:22px;color:var(--thread)}
+  .ride .rmeta{color:var(--thread-dim);font-size:15px;font-style:italic;margin-top:4px}
+  .ride .dist{font-family:'Cinzel',serif;font-size:14px;color:var(--thread-dim);white-space:nowrap}
+
+  /* ingreso / form */
+  .join-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:44px;align-items:start}
+  .join-note p{color:var(--thread-dim);margin-bottom:16px}
+  form{display:flex;flex-direction:column;gap:18px}
+  label{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--thread-dim);margin-bottom:6px;display:block}
+  input,textarea,select{
+    width:100%;background:var(--leather-2);border:1px solid var(--hair);color:var(--thread);
+    font-family:'EB Garamond',serif;font-size:16px;padding:12px 14px;border-radius:2px;transition:border-color .2s;
+  }
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--blood-bright)}
+  textarea{resize:vertical;min-height:110px}
+  .btn{
+    align-self:flex-start;background:var(--blood);color:var(--thread);
+    font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;font-size:13px;
+    border:1px solid var(--blood-bright);padding:14px 34px;border-radius:2px;cursor:pointer;transition:background .2s,transform .1s;
+  }
+  .btn:hover{background:var(--blood-bright)}
+  .btn:active{transform:translateY(1px)}
+  .form-msg{font-style:italic;color:var(--gold);min-height:1.4em}
+
+  /* footer */
+  footer{text-align:center;padding:64px 20px 48px;border-top:1px solid var(--hair)}
+  .foot-brand{font-family:'UnifrakturMaguntia',cursive;font-size:30px;color:var(--thread)}
+  .foot-motto{font-family:'Cinzel',serif;letter-spacing:.4em;font-size:12px;text-transform:uppercase;color:var(--blood-bright);margin-top:8px}
+  .foot-meta{color:var(--thread-dim);font-size:14px;margin-top:18px}
+
+  @media(max-width:760px){
+    .navlinks{position:fixed;inset:64px 0 auto 0;flex-direction:column;gap:0;background:var(--leather-2);
+      border-bottom:1px solid var(--hair);display:none}
+    .navlinks.open{display:flex}
+    .navlinks a{padding:16px clamp(20px,5vw,64px);border-bottom:1px solid var(--hair)}
+    .navtoggle{display:block}
+    .ride{grid-template-columns:1fr;gap:6px}
+    .ride .dist{grid-row:1;justify-self:end}
+    .join-grid{grid-template-columns:1fr;gap:36px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav>
+    <a href="#top" class="brand">Photon Riders</a>
+    <button class="navtoggle" aria-label="Menú" onclick="document.getElementById('nav').classList.toggle('open')">Menú</button>
+    <div class="navlinks" id="nav">
+      <a href="#credo">Credo</a>
+      <a href="#rutas">Rutas</a>
+      <a href="#ingreso">Ingreso</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-glow"></div>
+    <img class="patch" src="assets/photon-riders-patch.png" alt="Parche de Photon Riders: escudo con motocicleta custom bajo un sol y estrellas, lema Aeternum">
+    <p class="hero-lede">Paterna · Valencia · Solo por invitación</p>
+    <p class="hero-sub">Una hermandad de asfalto y luz. Rodamos porque la carretera no espera, y la luz tampoco.</p>
+    <p class="scrollcue">Desliza</p>
+  </header>
+
+  <div class="divider"></div>
+
+  <section id="credo">
+    <p class="eyebrow">Aeternum</p>
+    <h2>Nuestro credo</h2>
+    <p class="lead">No somos muchos y no queremos serlo. Photon Riders se fundó en Paterna sobre una idea sencilla: la carretera se respeta, los hermanos se cuidan y la máquina se conoce. Todo lo demás es ruido.</p>
+    <div class="creed">
+      <article>
+        <p class="num">I · Hermandad</p>
+        <h3>Uno responde por todos</h3>
+        <p>El ingreso es por invitación porque la confianza no se improvisa. Quien entra, entra para quedarse.</p>
+      </article>
+      <article>
+        <p class="num">II · Máquina</p>
+        <h3>Conoce tu moto</h3>
+        <p>Respetamos a quien entiende lo que conduce. La mecánica no es adorno: es parte del oficio de rodar.</p>
+      </article>
+      <article>
+        <p class="num">III · Camino</p>
+        <h3>La luz no se detiene</h3>
+        <p>Aeternum. Rodamos con cabeza, sin prisa por presumir y sin miedo a la distancia.</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="rutas">
+    <p class="eyebrow">Calendario</p>
+    <h2>Rutas</h2>
+    <p class="lead">Salidas abiertas a miembros y acompañantes invitados. La puntualidad es la primera regla del grupo: se sale a la hora, con el depósito lleno.</p>
+    <div class="rides">
+      <div class="ride">
+        <span class="date">SÁB · 26 JUL</span>
+        <div><div class="rname">Sierra de Espadán</div><div class="rmeta">Curvas de montaña · parada en Eslida · desayuno de club</div></div>
+        <span class="dist">180 km</span>
+      </div>
+      <div class="ride">
+        <span class="date">DOM · 10 AGO</span>
+        <div><div class="rname">Ruta del Turia</div><div class="rmeta">Salida amanecer desde Paterna · ritmo tranquilo</div></div>
+        <span class="dist">120 km</span>
+      </div>
+      <div class="ride">
+        <span class="date">SÁB · 30 AGO</span>
+        <div><div class="rname">Faro de Cullera al atardecer</div><div class="rmeta">Costa · cena de hermandad al llegar</div></div>
+        <span class="dist">150 km</span>
+      </div>
+      <div class="ride">
+        <span class="date">SÁB · 20 SEP</span>
+        <div><div class="rname">Els Ports · gran salida</div><div class="rmeta">Ruta de fin de semana · pernocta · solo miembros</div></div>
+        <span class="dist">340 km</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="ingreso">
+    <p class="eyebrow">Cómo se entra</p>
+    <h2>Ingreso</h2>
+    <div class="join-grid">
+      <div class="join-note">
+        <p>Photon Riders es un club por invitación. No hay cuota de entrada abierta ni ingreso inmediato: se conoce a la persona antes de ofrecerle el parche.</p>
+        <p>Si has rodado con alguno de nosotros o alguien del club te ha animado a escribir, deja tus datos. Un miembro se pondrá en contacto para invitarte a una salida y conocernos sin compromiso.</p>
+        <p>El chaleco no se compra. Se gana.</p>
+      </div>
+      <form id="joinForm" novalidate>
+        <div>
+          <label for="nombre">Nombre y apodo</label>
+          <input id="nombre" name="nombre" type="text" placeholder="Cómo te llaman en la carretera" required>
+        </div>
+        <div>
+          <label for="moto">Tu moto</label>
+          <input id="moto" name="moto" type="text" placeholder="Marca y modelo" required>
+        </div>
+        <div>
+          <label for="aval">¿Quién te avala?</label>
+          <input id="aval" name="aval" type="text" placeholder="Miembro que te recomienda (si lo hay)">
+        </div>
+        <div>
+          <label for="mensaje">Por qué quieres rodar con nosotros</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos algo de ti"></textarea>
+        </div>
+        <button class="btn" type="submit">Enviar solicitud</button>
+        <p class="form-msg" id="formMsg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <div class="foot-brand">Photon Riders</div>
+    <div class="foot-motto">Aeternum</div>
+    <p class="foot-meta">Paterna, Valencia · España<br>contacto@photonriders.club</p>
+  </footer>
+
+</div>
+
+<script>
+  // close mobile nav on link click
+  document.querySelectorAll('.navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav').classList.remove('open')));
+
+  // form handling (front-end only demo — no backend wired yet)
+  document.getElementById('joinForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    const msg=document.getElementById('formMsg');
+    const nombre=document.getElementById('nombre').value.trim();
+    const moto=document.getElementById('moto').value.trim();
+    if(!nombre||!moto){msg.textContent='Necesitamos al menos tu nombre y tu moto.';return;}
+    msg.textContent='Solicitud recibida, '+nombre+'. Un miembro te escribirá pronto. Rueda con cuidado.';
+    this.reset();
+  });
+</script>
+</body>
+</html>
