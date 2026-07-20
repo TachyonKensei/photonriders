@@ -110,6 +110,12 @@
   .rides-soon{margin-top:48px;padding:56px 40px;border:1px solid var(--hair);border-radius:4px;text-align:center;background:linear-gradient(180deg,rgba(42,53,80,.05),transparent)}
   .rides-soon .soon-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--blood-bright);margin-bottom:16px}
   .rides-soon .soon-text{max-width:52ch;margin:0 auto 28px;color:var(--thread-dim);font-size:19px}
+  .route-feature{display:block;margin-top:48px;padding:32px 36px;border:1px solid var(--hair);border-left:3px solid var(--blood);border-radius:4px;background:linear-gradient(180deg,rgba(143,47,47,.06),transparent);text-decoration:none;transition:transform .15s,box-shadow .2s,border-color .2s}
+  .route-feature:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(32,32,30,.14);border-left-color:var(--blood-bright)}
+  .route-feature .rf-label{display:block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--blood-bright);margin-bottom:10px}
+  .route-feature .rf-title{display:block;font-family:'UnifrakturMaguntia',cursive;font-size:clamp(26px,4vw,36px);color:var(--thread);line-height:1.1;margin-bottom:10px}
+  .route-feature .rf-desc{display:block;color:var(--thread-dim);font-size:17px;margin-bottom:16px}
+  .route-feature .rf-cta{display:inline-block;font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blood)}
 
   /* ingreso / form */
   .join-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:44px;align-items:start}
@@ -203,9 +209,17 @@
     <p class="eyebrow">Calendario</p>
     <h2>Rutas</h2>
     <p class="lead">Salidas abiertas a socios y acompañantes. La puntualidad es la primera norma del grupo: se sale a la hora, con el depósito lleno.</p>
+
+    <a class="route-feature" href="ruta-utiel-requena.html">
+      <span class="rf-label">Ruta destacada · Nº 01</span>
+      <span class="rf-title">Vino y Curvas por Utiel-Requena</span>
+      <span class="rf-desc">Un día de curvas, viñedos y bodega por la Tierra de Bobal. ≈230 km · día completo.</span>
+      <span class="rf-cta">Ver la ruta →</span>
+    </a>
+
     <div class="rides-soon">
-      <p class="soon-title">Próximamente</p>
-      <p class="soon-text">Estamos preparando el calendario de salidas. Anunciaremos aquí las próximas rutas con sus fechas y recorridos. Hazte socio y te avisaremos de la primera.</p>
+      <p class="soon-title">Más rutas, próximamente</p>
+      <p class="soon-text">Seguimos preparando el calendario de salidas. Anunciaremos aquí las próximas rutas con sus fechas y recorridos. Hazte socio y te avisaremos de la primera.</p>
       <a href="#ingreso" class="btn">Quiero enterarme</a>
     </div>
   </section>
